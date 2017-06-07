@@ -6,7 +6,7 @@ var gridSize;//20
 var tileCount;//20
 var xSpeed;//0 
 var ySpeed;//0
-var trail;//[]
+var trail = [];//[]
 var tail;//5
 
 
@@ -23,8 +23,14 @@ function initialize(){
 	foodX = foodY = 15;
 	gridSize = tileCount = 20;
 	xSpeed = ySpeed = 0;
-	trail = [];
 	tail = 5;
+	while(trail.length > tail){
+		trail.shift();
+	}
+	for(var i = 0; i < trail.length; i++){
+		trail[i].x = xPos;
+		trail[i].y = yPos;
+	}
 }
 
 function game(){
@@ -92,18 +98,30 @@ function findEmptyCell(){
 }
 
 function keyPush(event){
-  switch(event.keyCode){
-    case 37://left
-      xSpeed = -1;ySpeed = 0;
-      break;
-     case 38://up
-      xSpeed = 0;ySpeed = -1;
-      break;
-      case 39://right
-      xSpeed = 1;ySpeed = 0;
-      break;
-      case 40://down
-      xSpeed = 0;ySpeed = 1;
-      break;
+	switch(event.keyCode){
+		case 37://left
+			if(!(trail[trail.length - 2].x < trail[trail.length - 1].x)){
+				xSpeed = -1;
+				ySpeed = 0;
+			}		
+		break;
+		case 38://up
+			if(!(trail[trail.length - 2].y < trail[trail.length - 1].y)){
+				xSpeed = 0;
+				ySpeed = -1;
+			}
+		break;
+		case 39://right
+			if(!(trail[trail.length - 2].x > trail[trail.length - 1].x)){
+				xSpeed = 1;
+				ySpeed = 0;
+			}
+		break;
+		case 40://down
+			if(!(trail[trail.length - 2].y > trail[trail.length - 1].y)){
+				xSpeed = 0;
+				ySpeed = 1;
+			}
+		break;
   }
 }
