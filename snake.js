@@ -58,16 +58,39 @@ function game(){
     trail.shift();
   }
   
-  if (foodX == xPos && foodY == yPos){
-      tail++;
-      foodX = Math.floor(Math.random()*tileCount);
-      foodY = Math.floor(Math.random()*tileCount);
-  }
-  
-  ctx.fillStyle = "red";
-  ctx.fillRect (foodX*gridSize, foodY*gridSize,gridSize -2, gridSize -2);
-  
+  spawnFood();
+	
 }
+
+function spawnFood(){
+	if (foodX == xPos && foodY == yPos){
+      tail++;
+      var foodLocation = findEmptyCell();
+	  foodX = foodLocation[0];
+	  foodY = foodLocation[1];
+	}
+  
+	ctx.fillStyle = "red";
+	ctx.fillRect (foodX*gridSize, foodY*gridSize,gridSize -2, gridSize -2);
+}
+
+function findEmptyCell(){
+	var isEmpty = false;
+	var x;
+	var y;
+	while(!isEmpty){
+		x = Math.floor(Math.random()*tileCount);
+		y = Math.floor(Math.random()*tileCount);
+		for(var i = 0; i < trail.length; i++){
+			if (!(trail[i].x == x && trail[i].y == y)){
+				isEmpty = true;
+			}
+		}
+	}
+	var coord = [x, y];
+	return coord;
+}
+
 function keyPush(event){
   switch(event.keyCode){
     case 37://left
