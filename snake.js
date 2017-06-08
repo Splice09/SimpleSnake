@@ -87,10 +87,14 @@ function findEmptyCell(){
 	while(!isEmpty){
 		x = Math.floor(Math.random()*tileCount);
 		y = Math.floor(Math.random()*tileCount);
+		var filled = 0;
 		for(var i = 0; i < trail.length; i++){
-			if (!(trail[i].x == x && trail[i].y == y)){
-				isEmpty = true;
+			if (trail[i].x == x && trail[i].y == y){
+				filled++;
 			}
+		}
+		if(filled == 0){
+			isEmpty = true;
 		}
 	}
 	var coord = [x, y];
