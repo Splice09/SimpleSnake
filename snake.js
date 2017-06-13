@@ -55,7 +55,7 @@ function game(){
   for (var i = 0; i < trail.length; i++){
     ctx.fillRect (trail[i].x*gridSize, trail[i].y*gridSize,gridSize -2, gridSize -2);
     if (trail[i].x == xPos && trail[i].y == yPos){
-      tail = 5;
+      initialize();
     }
   }
   
